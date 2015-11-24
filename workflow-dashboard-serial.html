@@ -1,0 +1,54 @@
+<!--
+(C) Copyright 2015 Nuxeo SA (http://nuxeo.com/) and contributors.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the GNU Lesser General Public License
+(LGPL) version 2.1 which accompanies this distribution, and is available at
+http://www.gnu.org/licenses/lgpl.html
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+Contributors:
+  Josh Fletcher <jfletcher@nuxeo.com>
+-->
+<link rel="import" href="workflow-dashboard-serial.html">
+<!--
+An element providing a dashboard for the investigator workflow in the Case Management Showcase.
+
+Example:
+
+    <gen-workflow-dashboard-investigator start-date="2015-01-01"
+                                        end-date="2015-12-31">
+    </gen-workflow-dashboard-investigator>
+
+@group Nuxeo Dashboards
+@element gen-workflow-dashboard-investigator
+@demo demo/index.html
+-->
+<dom-module id="workflow-dashboard-serial">
+
+  <template>
+
+    <gen-workflow-dashboards-common workflow-name="SerialDocumentReview" start-date="[[startDate]]" end-date="[[endDate]]">
+    </gen-workflow-dashboards-common>
+
+  </template>
+
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'workflow-dashboard-serial',
+
+    // Expose startDate and endDate as properties
+    properties: {
+      startDate: String,
+      endDate: String
+    }
+
+  });
+</script>
