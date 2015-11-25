@@ -20,7 +20,7 @@ Contributors:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>Serial Workflow Dashboard Demo</title>
+  <title>Workflow Dashboard Demo</title>
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../moment/min/moment-with-locales.js"></script>
@@ -64,22 +64,24 @@ Contributors:
     <!-- Define a connection to our Nuxeo server -->
     <nuxeo-connection url="/nuxeo"></nuxeo-connection>
 
+		
+	
+
     <paper-header-panel>
       <paper-toolbar>
         <div id="logo"></div>
-        <div id="title">Serial Workflow Dashboard</div>
-        <div id="dateRange">
+        <div id="title">Workflow Dashboard</div>
+        <div id="workFlowInfo">
           <input type="date" value="{{startDate::change}}">
           <input type="date" value="{{endDate::change}}">
         </div>
       </paper-toolbar>
 
 
-
       <!-- Include our element and specify a start and end date -->
 	  
-      <workflow-dashboard-serial start-date="[[startDate]]" end-date="[[endDate]]">
-      </workflow-dashboard-serial>
+      <gen-workflow-dashboards-common start-date="[[startDate]]" end-date="[[endDate]]">
+      </gen-workflow-dashboards-common>
 
     </paper-header-panel>
 

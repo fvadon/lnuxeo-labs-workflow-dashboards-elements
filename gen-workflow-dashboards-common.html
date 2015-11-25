@@ -12,12 +12,25 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 Lesser General Public License for more details.
 
 Contributors:
-  Josh Fletcher <jfletcher@nuxeo.com>
+  Fred Vadon <fvadon@nuxeo.com>
 -->
+<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../iron-icons/image-icons.html">
 <link rel="import" href="../google-chart/google-chart.html">
 <link rel="import" href="../nuxeo-dataviz-elements/nuxeo-dataviz-elements.html">
+
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-styles/demo-pages.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+  
 <!--
 An element providing dashboard elements for a given workflow.
 
@@ -37,9 +50,36 @@ Example:
   <link rel="import" type="css" href="gen-workflow-dashboards.css">
 
   <template>
+	 
+	
+    <style is="custom-style">    
+      paper-toolbar {
+        --paper-toolbar-background: #ffff;
+      }
+    </style>
+	 
+ 	<nuxeo-repository-data ecm-primary-type="DocumentRoute"
+ 	                       where='[{"term": {"ecm:currentLifeCycleState": "validated"}}]'
+ 						   grouped-by="ecm:name"
+ 	                       data="{{workflowsTemplates}}">
+ 	</nuxeo-repository-data>
+	
+    <paper-toolbar>
 
+
+          <paper-dropdown-menu label="Workflow Name">
+            <paper-listbox class="dropdown-content" selected="0" on-iron-select="_itemSelected">
+            <template is="dom-repeat" items="[[workflowsTemplates]]">
+              <paper-item>[[item.key]]</paper-item>
+            </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+   
+    </paper-toolbar>
+	
     <!-- Total workflows started by each user -->
-    <nuxeo-workflow-data workflow="[[workflowName]]" event="afterWorkflowStarted" grouped-by="workflowInitiator" start-date="[[startDate]]" end-date="[[endDate]]" data="{{initiators}}">
+    <nuxeo-workflow-data workflow="{{workflowName}}" event="afterWorkflowStarted" grouped-by="workflowInitiator" start-date="[[startDate]]" end-date="[[endDate]]" data="{{initiators}}">
     </nuxeo-workflow-data>
 
     <!-- Display a Pie Chart with our data -->
@@ -53,14 +93,29 @@ Example:
     <!-- Avg workflow duration -->
     <nuxeo-workflow-data workflow="[[workflowName]]" event="afterWorkflowFinish" metrics="avg(timeSinceWfStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgWorkflowLength}}">
     </nuxeo-workflow-data>
-
+	
     <paper-card heading="Average Workflow Duration" elevation="2">
       <div class="card-content">
         <iron-icon icon="image:timer"></iron-icon>
         <span class="workflow-length-label">[[_asDuration(avgWorkflowLength)]]</span>
       </div>
     </paper-card>
-
+	
+    <nuxeo-workflow-data workflow="[[workflowName]]" event="afterWorkflowTaskEnded" grouped-by="taskName" start-date="[[startDate]]" end-date="[[endDate]]" data="{{taskNames}}">
+    </nuxeo-workflow-data>
+	
+    <paper-card heading="Workflow Tasks" elevation="2">
+    	<div class="card-content">
+        <google-chart type="pie" cols='[{"label": "Task Name", "type": "string"},{"label": "Number", "type": "number"}]' rows="[[_rows(taskNames)]]">
+        </google-chart>
+        </div>
+    </paper-card>
+    <paper-card heading="Workflow Tasks" elevation="2">
+    	<div class="card-content">
+        <google-chart type="pie" cols='[{"label": "Task Name", "type": "string"},{"label": "Number", "type": "number"}]' rows="[[_rows(taskNames)]]">
+        </google-chart>
+        </div>
+    </paper-card>
   </template>
 
 </dom-module>
@@ -72,16 +127,32 @@ Example:
 
     // Expose properties
     properties: {
-      workflowName: String,
+      //workflowName: String,
       startDate: String,
-      endDate: String
+		endDate: String,
+		workflowName:{
+			type: String,
+			notify: true}
+    },
+    ready: function() {
+		//this.workflowName="SerialDocumentReview";
     },
 
+	_itemSelected : function(e) {
+	    this.workflowName = e.target.selectedItem.innerText.trim();
+	  },
+	  
     // Transform our data for usage with Google Charts
     _rows: function (data) {
       return data.map(function (e) {
         return [e.key, e.value];
       });
+    },
+	
+    _tableSimple: function(data) {
+      return data.map(function (e) {
+        return {key: e.key, value: e.value};
+      }.bind(this));
     },
 
     _asDuration: function (duration) {

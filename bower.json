@@ -1,22 +1,17 @@
 {
-  "name": "cm-workflow-dashboards-elements",
+  "name": "gen-workflow-dashboards-elements",
   "version": "1.0.2",
   "authors": [
-    "Josh Fletcher <jfletcher@nuxeo.com>"
+    "Josh Fletcher <fvadon@nuxeo.com>"
   ],
-  "description": "Workflow Dashboards for the Nuxeo Case Management Showcase.",
+  "description": "Workflow Dashboards for Nuxeo.",
   "keywords": [
     "web-component",
     "polymer",
     "seed"
   ],
   "main": [
-    "cm-workflow-dashboard-CheckContract.html",
-    "cm-workflow-dashboard-GetInfosAndFiles.html",
-    "cm-workflow-dashboard-GetValudation.html",
-    "cm-workflow-dashboard-Decisions.html",
-    "cm-workflow-dashboard-Archive.html",
-    "cm-workflow-dashboard-investigator.html"
+    "gen-workflow-dashboards-common.html"
   ],
   "license": "LGPL",
   "homepage": "https://github.com/nuxeo_sandbox/cm-workflow-dashboards-elements",
@@ -29,6 +24,7 @@
     "iron-ajax": "PolymerElements/iron-ajax#~1.0.7",
     "iron-elements": "PolymerElements/iron-elements#1.0.4",
     "paper-elements": "PolymerElements/paper-elements#1.0.5",
+    "paper-listbox": "Polymerelements/paper-listbox#1.0.0",
     "google-chart": "GoogleWebComponents/google-chart#1.0.3",
     "nuxeo-elements": "nuxeo/nuxeo-elements#~0.2.3",
     "nuxeo-dataviz-elements": "nuxeo/nuxeo-dataviz-elements#~0.2.1"
