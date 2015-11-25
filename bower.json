@@ -2,7 +2,7 @@
   "name": "gen-workflow-dashboards-elements",
   "version": "1.0.2",
   "authors": [
-    "Josh Fletcher <fvadon@nuxeo.com>"
+    "Fred Vadon <fvadon@nuxeo.com>"
   ],
   "description": "Workflow Dashboards for Nuxeo.",
   "keywords": [

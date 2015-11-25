@@ -1,6 +1,6 @@
-# About Case Management Showcase Workflow Dashboards
+# About Workflow Dashboards
 
-Workflow Dashboard elements for the Nuxeo Case Management Showcase.
+Workflow Dashboard elements for the Nuxeo.
 
 These are Polymer Web components.
 
