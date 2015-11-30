@@ -12,7 +12,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 Lesser General Public License for more details.
 
 Contributors:
-  Josh Fletcher <jfletcher@nuxeo.com>
   Fred Vadon <fvadon@nuxeo.com>
 -->
 <html>
@@ -20,12 +19,14 @@ Contributors:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>Workflow Dashboard Demo</title>
+  <title>Workflow Selector Demo</title>
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../moment/min/moment-with-locales.js"></script>
 
   <link rel="import" href="../elements.html">
+  <link rel="import" href="../paper-card/paper-card.html">
+  
 
   <style is="custom-style">
     body {
@@ -64,24 +65,21 @@ Contributors:
     <!-- Define a connection to our Nuxeo server -->
     <nuxeo-connection url="/nuxeo"></nuxeo-connection>
 
-		
-	
-
     <paper-header-panel>
       <paper-toolbar>
         <div id="logo"></div>
-        <div id="title">Workflow Dashboard</div>
-        <div id="workFlowInfo">
-          <input type="date" value="{{startDate::change}}">
-          <input type="date" value="{{endDate::change}}">
-        </div>
+        <div id="title">Workflow Selector Demo</div>
       </paper-toolbar>
-
-
-      <!-- Include our element and specify a start and end date -->
 	  
-      <gen-workflow-dashboards-common start-date="[[startDate]]" end-date="[[endDate]]">
-      </gen-workflow-dashboards-common>
+      <paper-toolbar>
+  		<nuxeo-workflow-selector workflow-name={{workflowName}}>
+  		</nuxeo-workflow-selector>
+      </paper-toolbar>
+	  
+	  <paper-card heading="Selected Workflow" elevation="2">
+	    <div class="card-content">{{workflowName}}</div>
+	  </paper-card>
+	  
 
     </paper-header-panel>
 

@@ -29,15 +29,13 @@ Contributors:
 <link rel="import" href="../paper-styles/demo-pages.html">
 <link rel="import" href="../paper-tabs/paper-tabs.html">
 
-<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
   
 <!--
 An element providing dashboard elements for a given workflow.
 
 Example:
 
-    <gen-workflow-dashboards-common workflowNAme="myWorkflow"
-                                   start-date="2015-01-01"
+    <gen-workflow-dashboards-common start-date="2015-01-01"
                                    end-date="2015-12-31">
     </gen-workflow-dashboards-common>
 
@@ -57,27 +55,11 @@ Example:
         --paper-toolbar-background: #ffff;
       }
     </style>
-	 
- 	<nuxeo-repository-data ecm-primary-type="DocumentRoute"
- 	                       where='[{"term": {"ecm:currentLifeCycleState": "validated"}}]'
- 						   grouped-by="ecm:name"
- 	                       data="{{workflowsTemplates}}">
- 	</nuxeo-repository-data>
 	
     <paper-toolbar>
-
-
-          <paper-dropdown-menu label="Workflow Name">
-            <paper-listbox class="dropdown-content" selected="0" on-iron-select="_itemSelected">
-            <template is="dom-repeat" items="[[workflowsTemplates]]">
-              <paper-item>[[item.key]]</paper-item>
-            </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
-
-   
+		<nuxeo-workflow-selector workflow-name={{workflowName}}>
+		</nuxeo-workflow-selector>
     </paper-toolbar>
-	
     <!-- Total workflows started by each user -->
     <nuxeo-workflow-data workflow="{{workflowName}}" event="afterWorkflowStarted" grouped-by="workflowInitiator" start-date="[[startDate]]" end-date="[[endDate]]" data="{{initiators}}">
     </nuxeo-workflow-data>
@@ -129,25 +111,12 @@ Example:
 			type: String,
 			notify: true}
     },
-    ready: function() {
-		//this.workflowName="SerialDocumentReview";
-    },
-
-	_itemSelected : function(e) {
-	    this.workflowName = e.target.selectedItem.innerText.trim();
-	  },
 	  
     // Transform our data for usage with Google Charts
     _rows: function (data) {
       return data.map(function (e) {
         return [e.key, e.value];
       });
-    },
-	
-    _tableSimple: function(data) {
-      return data.map(function (e) {
-        return {key: e.key, value: e.value};
-      }.bind(this));
     },
 
     _asDuration: function (duration) {
