@@ -1,35 +1,28 @@
 {
-  "name": "gen-workflow-dashboards-elements",
-  "version": "1.0.2",
-  "authors": [
-    "Fred Vadon <fvadon@nuxeo.com>"
-  ],
-  "description": "Workflow Dashboards for Nuxeo.",
-  "keywords": [
-    "web-component",
-    "polymer",
-    "seed"
-  ],
-  "main": [
-    "gen-workflow-dashboards-common.html"
-  ],
-  "license": "LGPL",
-  "homepage": "https://github.com/nuxeo_sandbox/cm-workflow-dashboards-elements",
-  "ignore": [
-    "/.*",
-    "/test/"
-  ],
+  "name": "nuxeo-workflow-generic-dashboard",
+  "private": true,
   "dependencies": {
-    "polymer": "~1.2.0",
-    "iron-ajax": "PolymerElements/iron-ajax#~1.0.7",
-    "iron-elements": "PolymerElements/iron-elements#1.0.4",
-    "paper-elements": "PolymerElements/paper-elements#1.0.5",
-    "paper-listbox": "Polymerelements/paper-listbox#1.0.0",
-    "google-chart": "GoogleWebComponents/google-chart#1.0.3",
-    "nuxeo-elements": "nuxeo/nuxeo-elements#~0.2.3",
-    "nuxeo-dataviz-elements": "nuxeo/nuxeo-dataviz-elements#~0.2.1"
+    "iron-elements": "PolymerElements/iron-elements#^1.0.0",
+    "neon-elements": "PolymerElements/neon-elements#^1.0.0",
+    "page": "visionmedia/page.js#~1.6.4",
+    "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
+    "polymer": "Polymer/polymer#^1.2.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.1",
+    "iron-form": "PolymerElements/iron-form#~1.0.13",
+    "moment": "momentjs#~2.10.6",
+    "google-chart": "GoogleWebComponents/google-chart#~1.0.4",
+    "nuxeo": "nuxeo#~0.9.0",
+    "nuxeo-dataviz-elements": "nuxeo/nuxeo-dataviz-elements#~0.2.4",
+    "nuxeo-elements": "nuxeo/nuxeo-elements#master"
   },
   "devDependencies": {
-    "moment": "2.10.6"
+    "web-component-tester": "*"
+  },
+  "ignore": [],
+  "resolutions": {
+    "polymer": "^1.2.3",
+    "nuxeo": "master",
+    "nuxeo-elements": "master",
+    "paper-menu": "^1.0.0"
   }
 }

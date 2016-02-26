@@ -14,22 +14,22 @@ Lesser General Public License for more details.
 Contributors:
   Fred Vadon <fvadon@nuxeo.com>
 -->
-<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
-<link rel="import" href="../paper-card/paper-card.html">
-<link rel="import" href="../iron-icons/image-icons.html">
-<link rel="import" href="../google-chart/google-chart.html">
-<link rel="import" href="../nuxeo-dataviz-elements/nuxeo-dataviz-elements.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
+<link rel="import" href="../bower_components/nuxeo-dataviz-elements/nuxeo-dataviz-elements.html">
 
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-styles/demo-pages.html">
-<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-styles/demo-pages.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 
-  
+
 <!--
 An element providing dashboard elements for a given workflow.
 
@@ -48,17 +48,17 @@ Example:
   <link rel="import" type="css" href="gen-workflow-dashboards.css">
 
   <template>
-	 
-	
-    <style is="custom-style">    
+
+
+    <style is="custom-style">
       paper-toolbar {
         --paper-toolbar-background: #ffff;
       }
     </style>
-	
+
     <paper-toolbar>
-		<nuxeo-workflow-selector workflow-name={{workflowName}}>
-		</nuxeo-workflow-selector>
+      <nuxeo-workflow-selector workflow-name={{workflowName}}>
+      </nuxeo-workflow-selector>
     </paper-toolbar>
     <!-- Total workflows started by each user -->
     <nuxeo-workflow-data workflow="{{workflowName}}" event="afterWorkflowStarted" grouped-by="workflowInitiator" start-date="[[startDate]]" end-date="[[endDate]]" data="{{initiators}}">
@@ -75,22 +75,22 @@ Example:
     <!-- Avg workflow duration -->
     <nuxeo-workflow-data workflow="[[workflowName]]" event="afterWorkflowFinish" metrics="avg(timeSinceWfStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgWorkflowLength}}">
     </nuxeo-workflow-data>
-	
+
     <paper-card heading="Average Workflow Duration" elevation="2">
       <div class="card-content">
         <iron-icon icon="image:timer"></iron-icon>
         <span class="workflow-length-label">[[_asDuration(avgWorkflowLength)]]</span>
       </div>
     </paper-card>
-	
+
     <nuxeo-workflow-data workflow="[[workflowName]]" event="afterWorkflowTaskEnded" grouped-by="taskName" start-date="[[startDate]]" end-date="[[endDate]]" data="{{taskNames}}">
     </nuxeo-workflow-data>
-	
+
     <paper-card heading="Workflow Tasks" elevation="2">
-    	<div class="card-content">
+      <div class="card-content">
         <google-chart type="pie" cols='[{"label": "Task Name", "type": "string"},{"label": "Number", "type": "number"}]' rows="[[_rows(taskNames)]]">
         </google-chart>
-        </div>
+      </div>
     </paper-card>
 
   </template>
@@ -106,39 +106,40 @@ Example:
     properties: {
       //workflowName: String,
       startDate: String,
-		endDate: String,
-		workflowName:{
-			type: String,
-			notify: true}
+      endDate: String,
+      workflowName: {
+        type: String,
+        notify: true
+      }
     },
-	  
+
     // Transform our data for usage with Google Charts
-    _rows: function (data) {
-      return data.map(function (e) {
+    _rows: function(data) {
+      return data.map(function(e) {
         return [e.key, e.value];
       });
     },
 
-    _asDuration: function (duration) {
-      var seconds = Math.floor(duration / 1000),
-        minutes = Math.floor(seconds / 60),
-        hours = Math.floor(minutes / 60),
-        days = Math.floor(hours / 24),
-        hours = hours - (days * 24),
-        minutes = minutes - (days * 24 * 60) - (hours * 60),
-        seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60),
-        result = "";
+    _asDuration: function(duration) {
+      var seconds = Math.floor(duration / 1000);
+      var  minutes = Math.floor(seconds / 60);
+      var  hours = Math.floor(minutes / 60);
+      var  days = Math.floor(hours / 24);
+      var  hours = hours - (days * 24); // jshint ignore:line
+      var  minutes = minutes - (days * 24 * 60) - (hours * 60); // jshint ignore:line
+      var  seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60); // jshint ignore:line
+      var  result = '';
       if (days > 0) {
-        result += days + " Days ";
+        result += days + ' Days ';
       }
       if (hours > 0) {
-        result += hours + " h ";
+        result += hours + ' h ';
       }
       if (minutes > 0) {
-        result += minutes + " m ";
+        result += minutes + ' m ';
       }
       if (seconds > 0) {
-        result += seconds + " s ";
+        result += seconds + ' s ';
       }
       return result;
     }

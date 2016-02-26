@@ -22,10 +22,23 @@ Fred Vadon <fvadon@nuxeo.com>
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 	<title>Workflow Dashboard Demo</title>
 
-	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-	<script src="../../moment/min/moment-with-locales.js"></script>
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
 
-	<link rel="import" href="../elements.html">
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js scripts/libraries.min.js -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/select2/select2.min.js"></script>
+  <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endreplace-->
 
 	<style is="custom-style">
 	body {
@@ -33,14 +46,14 @@ Fred Vadon <fvadon@nuxeo.com>
 		font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		color: #444;
 	}
-    
+
 	#title {
 		font-size: 140%;
 		display: table;
 		color: 1D3581;
 		margin: 0 auto;
 	}
-    
+
 	#logo {
 		background: transparent url('http://localhost:8080/nuxeo/img/nuxeo_logo.png') no-repeat;
 		background-size: cover;
@@ -49,7 +62,7 @@ Fred Vadon <fvadon@nuxeo.com>
 		width: 210px;
 		;
 	}
-    
+
 	paper-toolbar {
 		--paper-toolbar-background: #ffff;
 	}
@@ -76,7 +89,7 @@ Fred Vadon <fvadon@nuxeo.com>
 
 
 	<!-- Include our element and specify a start and end date -->
-	  
+
 	<gen-workflow-dashboards-common start-date="[[startDate]]" end-date="[[endDate]]">
 </gen-workflow-dashboards-common>
 
