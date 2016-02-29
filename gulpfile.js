@@ -249,7 +249,7 @@ gulp.task('clean', function() {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['lint', 'styles', 'elements', 'images'], function() {
+gulp.task('serve', ['styles', 'elements', 'images'], function() {
 
   // setup our local proxy
   var proxyOptions = require('url').parse('http://localhost:8080/nuxeo');
@@ -315,7 +315,7 @@ gulp.task('default', ['clean'], function(cb) {
   // Uncomment 'cache-config' if you are going to use service workers.
   runSequence(
     ['copy', 'styles'],
-    'elements', ['lint', 'images', 'fonts', 'html'],
+    'elements', ['images', 'fonts', 'html'],
     'vulcanize', // 'cache-config',
     cb);
 });

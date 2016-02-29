@@ -58,11 +58,21 @@ Example:
       workflowName: {
         type: String,
         notify: true
+      },
+      workflowsTemplates: {
+        type: Object,
+        notify: true,
+        observer: '_debug'
       }
     },
 
     _itemSelected: function(e) {
       this.workflowName = e.target.selectedItem.innerText.trim();
+    },
+
+    _debug: function() {
+      console.log('Debug');
+      console.log(this.workflowsTemplates);
     }
 
   });

@@ -56,10 +56,6 @@ Example:
       }
     </style>
 
-    <paper-toolbar>
-      <nuxeo-workflow-selector workflow-name={{workflowName}}>
-      </nuxeo-workflow-selector>
-    </paper-toolbar>
     <!-- Total workflows started by each user -->
     <nuxeo-workflow-data workflow="{{workflowName}}" event="afterWorkflowStarted" grouped-by="workflowInitiator" start-date="[[startDate]]" end-date="[[endDate]]" data="{{initiators}}">
     </nuxeo-workflow-data>
@@ -93,6 +89,36 @@ Example:
       </div>
     </paper-card>
 
+    <nuxeo-workflow-data workflow="[[workflowName]]" task="Complete" grouped-by="taskActor" metrics="avg(timeSinceTaskStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgFirstCompletePerUser}}">
+    </nuxeo-workflow-data>
+
+    <paper-card heading="Average Duration for First Design" elevation="2">
+      <div class="card-content">
+        <nuxeo-data-table columns='[{"key": "key", "title": "User"}, {"key": "value", "title": "Average duration"}]' data="[[_table(avgFirstCompletePerUser)]]">
+        </nuxeo-data-table>
+      </div>
+    </paper-card>
+
+    <nuxeo-workflow-data workflow="[[workflowName]]" task="Review" grouped-by="taskActor" metrics="avg(timeSinceTaskStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgReviewPerUser}}">
+    </nuxeo-workflow-data>
+
+    <paper-card heading="Average Duration for Review" elevation="2">
+      <div class="card-content">
+        <nuxeo-data-table columns='[{"key": "key", "title": "User"}, {"key": "value", "title": "Average duration"}]' data="[[_table(avgReviewPerUser)]]">
+        </nuxeo-data-table>
+      </div>
+    </paper-card>
+
+    <nuxeo-workflow-data workflow="[[workflowName]]" task="Recomplete" grouped-by="taskActor" metrics="avg(timeSinceTaskStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgRecompletePerUser}}">
+    </nuxeo-workflow-data>
+
+    <paper-card heading="Average Duration for Resubmission" elevation="2">
+      <div class="card-content">
+        <nuxeo-data-table columns='[{"key": "key", "title": "User"}, {"key": "value", "title": "Average duration"}]' data="[[_table(avgRecompletePerUser)]]">
+        </nuxeo-data-table>
+      </div>
+    </paper-card>
+
   </template>
 
 </dom-module>
@@ -101,7 +127,6 @@ Example:
   Polymer({
 
     is: 'gen-workflow-dashboards-common',
-
     // Expose properties
     properties: {
       //workflowName: String,
@@ -109,7 +134,8 @@ Example:
       endDate: String,
       workflowName: {
         type: String,
-        notify: true
+        notify: true,
+        value: 'ProcessBoutique'
       }
     },
 
@@ -119,16 +145,24 @@ Example:
         return [e.key, e.value];
       });
     },
+    _table: function(data) {
+      return data.map(function(e) {
+        return {
+          key: e.key,
+          value: this._asDuration(e.value)
+        };
+      }.bind(this));
+    },
 
     _asDuration: function(duration) {
       var seconds = Math.floor(duration / 1000);
-      var  minutes = Math.floor(seconds / 60);
-      var  hours = Math.floor(minutes / 60);
-      var  days = Math.floor(hours / 24);
-      var  hours = hours - (days * 24); // jshint ignore:line
-      var  minutes = minutes - (days * 24 * 60) - (hours * 60); // jshint ignore:line
-      var  seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60); // jshint ignore:line
-      var  result = '';
+      var minutes = Math.floor(seconds / 60);
+      var hours = Math.floor(minutes / 60);
+      var days = Math.floor(hours / 24);
+      var hours = hours - (days * 24); // jshint ignore:line
+      var minutes = minutes - (days * 24 * 60) - (hours * 60); // jshint ignore:line
+      var seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60); // jshint ignore:line
+      var result = '';
       if (days > 0) {
         result += days + ' Days ';
       }
@@ -142,6 +176,37 @@ Example:
         result += seconds + ' s ';
       }
       return result;
+    },
+
+    _labels: function(data) {
+      if (!data) {
+        return [];
+      }
+      if (data.value) {
+        return data.value.map(function(obj) {
+          return obj.key;
+        });
+      } else {
+        return this._labels(data[0]);
+      }
+    },
+    _series: function(data) {
+      return data.map(function(obj) {
+        return obj.key;
+      });
+    },
+    _values: function(data) {
+      var values = [];
+      data.forEach(function(entry) {
+        if (Array.isArray(entry.value)) {
+          values.push(entry.value.map(function(e) {
+            return e.value;
+          }));
+        } else {
+          values.push(entry.value);
+        }
+      });
+      return values;
     }
 
   });

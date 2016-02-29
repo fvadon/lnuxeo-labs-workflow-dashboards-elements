@@ -75,12 +75,13 @@ Fred Vadon <fvadon@nuxeo.com>
 	<template is="dom-bind" id="app">
 
 		<!-- Define a connection to our Nuxeo server -->
-		<nuxeo-connection url="/nuxeo"></nuxeo-connection>
+		<!--<nuxeo-connection url="http://ruelala.cloud.nuxeo.com/nuxeo/" username=”Administrator” password="Nuxeo2015"></nuxeo-connection>-->
+    <nuxeo-connection url="nuxeo/"></nuxeo-connection>
 
 		<paper-header-panel>
 		<paper-toolbar>
 		<div id="logo"></div>
-		<div id="title">Workflow Dashboard</div>
+		<div id="title">Boutique Workflow Dashboard</div>
 		<div id="workFlowInfo">
 			<input type="date" value="{{startDate::change}}">
 			<input type="date" value="{{endDate::change}}">
@@ -91,7 +92,7 @@ Fred Vadon <fvadon@nuxeo.com>
 	<!-- Include our element and specify a start and end date -->
 
 	<gen-workflow-dashboards-common start-date="[[startDate]]" end-date="[[endDate]]">
-</gen-workflow-dashboards-common>
+  </gen-workflow-dashboards-common>
 
 </paper-header-panel>
 
