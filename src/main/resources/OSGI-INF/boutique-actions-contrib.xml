@@ -1,0 +1,37 @@
+<component name="org.nuxeo.ecm.review.workflows.dashboards.boutique.actions.contrib">
+
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService"
+             point="actions">
+
+    <action id="TAB_BOUTIQUE_WF_ANALYTICS" link="/incl/tabs/boutique_workflow_analytics.xhtml"
+            order="15" label="Workflow Audit" icon="/icons/file.gif" type="rest_document_link">
+      <category>VIEW_ACTION_LIST</category>
+      <filter-id>isDomainAndAdmin</filter-id>
+      <properties>
+        <!-- disable ajax support to avoid multiple calls to document.registerElement -->
+        <property name="ajaxSupport">false</property>
+      </properties>
+    </action>
+
+
+
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService"
+             point="filters">
+
+    <filter id="isBoutiqueWorkflow">
+      <rule grant="true">
+        <condition>#{currentDocument.getTitle() == 'Process Boutique'}</condition>
+      </rule>
+    </filter>
+    <filter id="isDomainAndAdmin">
+      <rule grant="true">
+        <type>Domain</type>
+        <condition>currentUser.administrator</condition>
+      </rule>
+    </filter>
+
+  </extension>
+
+</component>

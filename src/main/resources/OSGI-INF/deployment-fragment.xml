@@ -2,9 +2,9 @@
 <fragment version="1">
 
   <install>
-    <!-- Unzip the contents of our web application into the server -->
-    <unzip from="${bundle.fileName}" to="/">
-      <include>nuxeo.war/**</include>
+    <!-- Unzip the contents of our nuxeo.war into the server -->
+    <unzip from="${bundle.fileName}" to="/" prefix="web">
+      <include>web/nuxeo.war/**</include>
     </unzip>
   </install>
 

@@ -47,7 +47,7 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 var APP = 'src/main/app';
-var DIST = 'target/classes/nuxeo.war/workflowdashboard';
+var DIST = 'target/classes/web/nuxeo.war/workflowdashboard';
 
 var pathIfPresent = function(root, subpath) {
   return !subpath ? root : path.join(root, subpath);

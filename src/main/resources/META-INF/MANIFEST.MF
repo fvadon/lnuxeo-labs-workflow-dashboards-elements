@@ -5,4 +5,5 @@ Bundle-Version: 0.0.1
 Bundle-Name: Nuxeo Workflow Generic Dashboard
 Bundle-ManifestVersion: 1
 Bundle-SymbolicName: org.nuxeo.polymer.workflowdashboard;singleton:=true
-Nuxeo-Component: OSGI-INF/auth-config.xml
+Nuxeo-Component: OSGI-INF/auth-config.xml, OSGI-INF/boutique-actions-contrib.xml
+

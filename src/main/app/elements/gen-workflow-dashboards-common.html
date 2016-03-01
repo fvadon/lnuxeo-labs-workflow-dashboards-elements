@@ -16,20 +16,6 @@ Contributors:
 -->
 <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
-<link rel="import" href="../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../bower_components/iron-icons/image-icons.html">
-<link rel="import" href="../bower_components/google-chart/google-chart.html">
-<link rel="import" href="../bower_components/nuxeo-dataviz-elements/nuxeo-dataviz-elements.html">
-
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/paper-styles/demo-pages.html">
-<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
-
-
 <!--
 An element providing dashboard elements for a given workflow.
 
@@ -79,20 +65,20 @@ Example:
       </div>
     </paper-card>
 
-    <nuxeo-workflow-data workflow="[[workflowName]]" event="afterWorkflowTaskEnded" grouped-by="taskName" start-date="[[startDate]]" end-date="[[endDate]]" data="{{taskNames}}">
+    <nuxeo-workflow-data workflow="[[workflowName]]" task="Work on Assets" event="afterWorkflowTaskEnded" grouped-by="taskActor, action" start-date="[[startDate]]" end-date="[[endDate]]" data="{{numberOfActionsPerUser}}">
     </nuxeo-workflow-data>
 
-    <paper-card heading="Workflow Tasks" elevation="2">
+    <paper-card heading="Total Boutiques Completed" elevation="2">
       <div class="card-content">
-        <google-chart type="pie" cols='[{"label": "Task Name", "type": "string"},{"label": "Number", "type": "number"}]' rows="[[_rows(taskNames)]]">
-        </google-chart>
+        <chart-bar labels=[[_labelsBoutique()]] series=[[_series(numberOfActionsPerUser)]] values=[[_values(numberOfActionsPerUser)]] options='{"responsive": true}'>
+        </chart-bar>
       </div>
     </paper-card>
 
-    <nuxeo-workflow-data workflow="[[workflowName]]" task="Complete" grouped-by="taskActor" metrics="avg(timeSinceTaskStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgFirstCompletePerUser}}">
+    <nuxeo-workflow-data workflow="[[workflowName]]" task="Work on Assets" grouped-by="taskActor" metrics="avg(timeSinceTaskStarted)" start-date="[[startDate]]" end-date="[[endDate]]" data="{{avgFirstCompletePerUser}}">
     </nuxeo-workflow-data>
 
-    <paper-card heading="Average Duration for First Design" elevation="2">
+    <paper-card heading="Average Duration for First Submission" elevation="2">
       <div class="card-content block">
         <nuxeo-data-table columns='[{"key": "key", "title": "User"}, {"key": "value", "title": "Average duration"}]' data="[[_table(avgFirstCompletePerUser)]]">
         </nuxeo-data-table>
@@ -118,6 +104,8 @@ Example:
         </nuxeo-data-table>
       </div>
     </paper-card>
+
+
 
   </template>
 
@@ -176,6 +164,10 @@ Example:
         result += seconds + ' s ';
       }
       return result;
+    },
+
+    _labelsBoutique: function() {
+      return ["Boutiques"];
     },
 
     _labels: function(data) {
