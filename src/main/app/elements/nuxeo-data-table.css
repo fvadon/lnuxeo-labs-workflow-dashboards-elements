@@ -20,17 +20,17 @@
 
 #table .thead .tr .th,
 #table .tbody .tr .td {
-  padding-right: 56px;
+  padding-right: 28px;
 }
 
 #table .thead .tr .th:first-of-type,
 #table .tbody .tr .td:first-of-type {
-  padding-left: 24px;
+  padding-left: 12px;
 }
 
 #table .thead .tr .th:last-of-type,
 #table .tbody .tr .td:last-of-type {
-  padding-right: 24px;
+  padding-right: 12px;
 }
 
 #table .thead .tr .th {
